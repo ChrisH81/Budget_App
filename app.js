@@ -61,7 +61,6 @@ var budgetController = (function() {
     },
 
     deleteItem: function(type, id) {
-
       var ids, index;
 
       ids = data.allItems[type].map(function(current) {
@@ -145,7 +144,7 @@ var UIController = (function() {
         html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div><div></div>';
       } else if (type === 'exp') {
         element = DOMstrings.expensesContainer;
-        html = '<div class="item clearfix" id="exp-%id"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+        html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
       }
       // Replace the placeholder text with some actual data
       newHtml = html.replace('%id%', obj.id);
@@ -156,8 +155,10 @@ var UIController = (function() {
     },
 
     deleteListItem: function(selectorID) {
+
       var el = document.getElementById(selectorID);
       el.parentNode.removeChild(el);
+
     },
 
     clearFields: function() {
@@ -244,8 +245,8 @@ var controller = (function(budgetCtrl, UICtrl) {
 
   };
 
-  var ctrlDeleteItem = function(event, ID) {
-      var itemID, splitID, type, id;
+  var ctrlDeleteItem = function(event) {
+      var itemID, splitID, type, ID;
 
       itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
@@ -260,7 +261,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         // 2. delete item from UI
         UICtrl.deleteListItem(itemID);
         // 3. update and show the new budget
-        
+        updateBudget();
 
       }
   };
